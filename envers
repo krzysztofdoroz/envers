@@ -1,0 +1,56 @@
+﻿﻿-- Table: book
+
+-- DROP TABLE book;
+
+CREATE TABLE book
+(
+  id integer NOT NULL default nextval('book_id_seq'),
+  isin integer,
+  title character varying(255),
+  lastmodifieddate date,
+  CONSTRAINT book_pk PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE book OWNER TO postgres;
+
+
+drop table book;
+
+select * from book;
+
+select * from book_aud; 
+
+select * from REVINFO;
+
+create table REVINFO (
+        REV integer NOT NULL default nextval('upd_seq'),
+        REVTSTMP bigint,
+        primary key (REV)
+    )
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE REVINFO OWNER TO postgres;
+
+
+drop table REVINFO;
+
+CREATE TABLE book_aud
+(
+  id integer NOT NULL default nextval('book_id_seq_2'),
+  REV integer not null default nextval('upd_seq'),
+  isin integer,
+  title character varying(255),
+  lastmodifieddate date,
+  REVTYPE integer,
+  CONSTRAINT book_aud_pk PRIMARY KEY (id,REV)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE book_aud OWNER TO postgres;
+
+
+drop table book_aud;
